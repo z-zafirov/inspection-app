@@ -40,7 +40,7 @@
             <section class="cta-section">
                 <h2>Ready to get started?</h2>
                 <p>Access your dashboard to manage inspections, view reports, and more.</p>
-                <a href="/client/login.html" class="btn-primary">Login to Dashboard</a>
+                <button id="openLoginModal" class="btn-primary">Login to Dashboard</button>
             </section>
 
             <section class="info-section">
@@ -58,5 +58,52 @@
             <p>&copy; 2026 Restaurant Inspection System | Workshop Demo</p>
         </footer>
     </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="login-header">
+                <h2>🍽️ Sign In</h2>
+                <p>Access your account</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="your.email@example.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <button type="submit" class="btn-login">
+                    Sign In
+                </button>
+
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    Invalid email or password. Please try again.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
 </body>
 </html>
