@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Restaurant Inspection System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>🍽️ Admin Dashboard</h1>
+                    <p>System Overview & Management</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu">
+                        <div class="user-avatar">A</div>
+                        <div class="user-info-menu">
+                            <span class="user-name" id="userName">Admin User</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Total Restaurants</span>
+                        <span class="stat-icon">🏪</span>
+                    </div>
+                    <div class="stat-value">7</div>
+                    <div class="stat-change positive">
+                        <span>↑ 2</span>
+                        <span>this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Active Users</span>
+                        <span class="stat-icon">👥</span>
+                    </div>
+                    <div class="stat-value">9</div>
+                    <div class="stat-change neutral">
+                        <span>→</span>
+                        <span>no change</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Completed Inspections</span>
+                        <span class="stat-icon">✅</span>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-change positive">
+                        <span>↑ 1</span>
+                        <span>this week</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Pending Requests</span>
+                        <span class="stat-icon">⏳</span>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-change neutral">
+                        <span>→</span>
+                        <span>awaiting assignment</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity & User Management -->
+            <div class="grid-2">
+                <!-- User Management -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">User Management</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-primary">+ Add User</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Admin User</td>
+                                        <td><span class="badge badge-warning">Admin</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td><button class="btn btn-secondary">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lisa Chen</td>
+                                        <td><span class="badge badge-info">Manager</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td><button class="btn btn-secondary">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>John Smith</td>
+                                        <td><span class="badge badge-purple">Inspector</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td><button class="btn btn-secondary">Edit</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Overview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Restaurant Overview</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-secondary">View All</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Restaurant</th>
+                                        <th>City</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Downtown Pizza Place</td>
+                                        <td>Seattle</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunrise Coffee & Bakery</td>
+                                        <td>Seattle</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Harbor Bar & Grill</td>
+                                        <td>Seattle</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">System Status</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div>
+                            <p style="color: var(--text-gray); margin-bottom: 0.5rem;">Database</p>
+                            <p style="font-weight: 600; color: #10b981;">✓ Connected</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-gray); margin-bottom: 0.5rem;">API Server</p>
+                            <p style="font-weight: 600; color: #10b981;">✓ Running</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-gray); margin-bottom: 0.5rem;">Last Backup</p>
+                            <p style="font-weight: 600;">2026-04-21 18:00</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-gray); margin-bottom: 0.5rem;">Version</p>
+                            <p style="font-weight: 600;">v1.0.0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load user data
+        const userData = JSON.parse(sessionStorage.getItem('user'));
+        if (!userData) {
+            window.location.href = 'login.html';
+        } else if (userData.role !== 'admin') {
+            window.location.href = 'dashboard.html'; // Redirect to role router
+        } else {
+            document.getElementById('userName').textContent = userData.name;
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            sessionStorage.clear();
+            window.location.href = '/landing/index.html';
+        });
+    </script>
+</body>
+</html>

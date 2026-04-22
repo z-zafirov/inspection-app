@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspector Dashboard - Restaurant Inspection System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <style>
+        /* Mobile-first overrides for inspector */
+        @media (min-width: 769px) {
+            .dashboard-content {
+                max-width: 900px;
+            }
+        }
+
+        .inspection-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .inspection-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .inspection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .inspection-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .inspection-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        .inspection-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .inspection-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .sync-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>🍽️ Inspector Dashboard</h1>
+                    <p>My inspection assignments</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu">
+                        <div class="user-avatar">I</div>
+                        <div class="user-info-menu">
+                            <span class="user-name" id="userName">Inspector</span>
+                            <span class="user-role">Inspector</span>
+                        </div>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Sync Status -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <div class="sync-status">
+                    <span class="sync-dot"></span>
+                    <span>Online - All synced</span>
+                </div>
+                <button class="btn btn-secondary">🔄 Sync Now</button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Assigned</span>
+                        <span class="stat-icon">📋</span>
+                    </div>
+                    <div class="stat-value">1</div>
+                    <div class="stat-change neutral">
+                        <span>Scheduled inspection</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">In Progress</span>
+                        <span class="stat-icon">🔄</span>
+                    </div>
+                    <div class="stat-value">1</div>
+                    <div class="stat-change neutral">
+                        <span>Being conducted</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Completed</span>
+                        <span class="stat-icon">✅</span>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-change neutral">
+                        <span>This month</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In Progress Inspection -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🔄 In Progress</h2>
+                    <span class="badge badge-warning">1 Active</span>
+                </div>
+                <div class="card-body" style="padding: 1rem;">
+                    <div class="inspection-card" style="border-left-color: #f59e0b;">
+                        <div class="inspection-header">
+                            <div>
+                                <div class="inspection-title">Sakura Sushi House</div>
+                                <div class="inspection-subtitle">321 Cherry Blossom Lane, Seattle</div>
+                            </div>
+                            <span class="badge badge-warning">In Progress</span>
+                        </div>
+
+                        <div class="inspection-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Inspection Date</span>
+                                <span class="detail-value">Today</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Categories</span>
+                                <span class="detail-value">Kitchen, Main Hall</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Progress</span>
+                                <span class="detail-value">0 / 9 items</span>
+                            </div>
+                        </div>
+
+                        <div class="inspection-actions">
+                            <button class="btn btn-primary">📝 Continue Inspection</button>
+                            <button class="btn btn-secondary">💾 Save Draft</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Inspections -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📅 Upcoming Inspections</h2>
+                    <span class="badge badge-info">1 Scheduled</span>
+                </div>
+                <div class="card-body" style="padding: 1rem;">
+                    <div class="inspection-card" style="border-left-color: #3b82f6;">
+                        <div class="inspection-header">
+                            <div>
+                                <div class="inspection-title">Quick Burger Express</div>
+                                <div class="inspection-subtitle">987 Fast Lane, Seattle</div>
+                            </div>
+                            <span class="badge badge-info">Scheduled</span>
+                        </div>
+
+                        <div class="inspection-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Scheduled Date</span>
+                                <span class="detail-value">Apr 25, 2026</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Categories</span>
+                                <span class="detail-value">Kitchen, Main Hall</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Assigned By</span>
+                                <span class="detail-value">Lisa Chen</span>
+                            </div>
+                        </div>
+
+                        <div class="inspection-actions">
+                            <button class="btn btn-secondary">📋 View Details</button>
+                            <button class="btn btn-secondary">🗺️ Get Directions</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Completions -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">✅ Recently Completed</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary">View All</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Restaurant</th>
+                                    <th>Date</th>
+                                    <th>Score</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Downtown Pizza Place</strong></td>
+                                    <td>2026-03-25</td>
+                                    <td><strong style="color: #10b981;">6.08 / 10</strong></td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Harbor Bar & Grill</strong></td>
+                                    <td>2026-03-10</td>
+                                    <td><strong style="color: #10b981;">7.25 / 10</strong></td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="dashboard-inspector.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - Restaurant Inspection System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>🍽️ Restaurant Owner Dashboard</h1>
+                    <p>Manage your restaurant inspections</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu">
+                        <div class="user-avatar">O</div>
+                        <div class="user-info-menu">
+                            <span class="user-name" id="userName">Restaurant Owner</span>
+                            <span class="user-role">Owner</span>
+                        </div>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- My Restaurant Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Restaurant</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="showRequestInspectionModal()">📋 Request Inspection</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="grid-2">
+                        <div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-dark);" id="restaurantName">Loading...</h3>
+                            <div style="color: var(--text-gray); line-height: 1.8;">
+                                <p><strong>Address:</strong> <span id="restaurantAddress">-</span></p>
+                                <p><strong>City:</strong> <span id="restaurantCity">-</span></p>
+                                <p><strong>Phone:</strong> <span id="restaurantPhone">-</span></p>
+                                <p><strong>Email:</strong> <span id="restaurantEmail">-</span></p>
+                            </div>
+                            <div style="margin-top: 1.5rem;">
+                                <p style="color: var(--text-gray); font-size: 0.875rem; margin-bottom: 0.5rem;">Categories Enabled:</p>
+                                <div id="restaurantCategories" style="display: flex; gap: 0.5rem;">
+                                    <span class="badge badge-success">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 12px; text-align: center;">
+                                <p style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">Latest Inspection Score</p>
+                                <p style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;" id="latestScore">-</p>
+                                <p style="font-size: 0.875rem; opacity: 0.9;">out of 10.0</p>
+                                <p style="margin-top: 1rem; font-size: 0.875rem;" id="scoreImprovement">
+                                    <span style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 12px;">
+                                        Loading...
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Total Inspections</span>
+                        <span class="stat-icon">📊</span>
+                    </div>
+                    <div class="stat-value" id="totalInspections">0</div>
+                    <div class="stat-change neutral">
+                        <span>Since Jan 2026</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Average Score</span>
+                        <span class="stat-icon">⭐</span>
+                    </div>
+                    <div class="stat-value" id="averageScore">0</div>
+                    <div class="stat-change positive">
+                        <span>↑ 0.66</span>
+                        <span>trend improving</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Pending Requests</span>
+                        <span class="stat-icon">⏳</span>
+                    </div>
+                    <div class="stat-value" id="pendingRequests">0</div>
+                    <div class="stat-change neutral">
+                        <span>Loading...</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Next Inspection</span>
+                        <span class="stat-icon">📅</span>
+                    </div>
+                    <div class="stat-value" style="font-size: 1.25rem;" id="nextInspection">Loading...</div>
+                    <div class="stat-change neutral">
+                        <span>Check pending requests</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inspection History -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Inspection History</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary">View All</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Inspector</th>
+                                    <th>Overall Score</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inspectionHistoryBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                                        Loading inspection history...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Request Inspection Modal -->
+    <div id="requestInspectionModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 16px; padding: 2rem; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem; margin: 0; color: var(--text-dark);">Request Inspection</h2>
+                <button onclick="hideRequestInspectionModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-gray);">&times;</button>
+            </div>
+
+            <form id="requestInspectionForm" onsubmit="submitInspectionRequest(event)">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">
+                        Preferred Inspection Date
+                    </label>
+                    <input
+                        type="date"
+                        id="preferredDate"
+                        required
+                        style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 8px; font-size: 1rem;"
+                    >
+                    <p style="font-size: 0.875rem; color: var(--text-gray); margin-top: 0.5rem;">
+                        Select your preferred date for the inspection. Final scheduling will be confirmed by a manager.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">
+                        Additional Notes (Optional)
+                    </label>
+                    <textarea
+                        id="requestNotes"
+                        rows="4"
+                        placeholder="Any specific areas of concern or preparation notes..."
+                        style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 8px; font-size: 1rem; font-family: inherit; resize: vertical;"
+                    ></textarea>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                    <button type="button" onclick="hideRequestInspectionModal()" class="btn btn-secondary">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="dashboard-owner.js"></script>
+</body>
+</html>

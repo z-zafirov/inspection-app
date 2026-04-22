@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection Form - Restaurant Inspection System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* Mobile-first header */
+        .inspection-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .restaurant-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .inspection-date {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            min-height: 44px;
+            min-width: 44px;
+            cursor: pointer;
+        }
+
+        /* Sync status banner */
+        .sync-banner {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sync-banner.offline {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+
+        .sync-banner.offline .sync-dot {
+            background: #f59e0b;
+        }
+
+        .btn-sync {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: inherit;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            min-height: 44px;
+            cursor: pointer;
+        }
+
+        /* Checklist form */
+        .checklist-container {
+            padding: 1rem;
+            padding-bottom: 100px; /* Space for footer */
+        }
+
+        .category-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            text-transform: capitalize;
+        }
+
+        .checklist-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.25rem 0;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-header {
+            margin-bottom: 0.75rem;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .score-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .score-btn {
+            min-height: 44px;
+            min-width: 44px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .score-btn:active {
+            transform: scale(0.95);
+        }
+
+        .score-btn.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .score-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-bottom: 0.75rem;
+        }
+
+        .item-notes {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .item-notes:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        /* Fixed footer */
+        .inspection-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            z-index: 90;
+        }
+
+        .overall-score {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .overall-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .overall-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .footer-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            min-height: 48px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-draft {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="inspection-header">
+        <div class="header-content">
+            <div>
+                <div class="restaurant-name" id="restaurantName">Loading...</div>
+                <div class="inspection-date" id="inspectionDate">-</div>
+            </div>
+            <button class="btn-back" onclick="goBack()">← Back</button>
+        </div>
+    </div>
+
+    <!-- Sync Status Banner -->
+    <div class="sync-banner" id="syncBanner">
+        <div class="sync-status">
+            <span class="sync-dot"></span>
+            <span id="syncStatus">Online - All synced</span>
+        </div>
+        <button class="btn-sync" onclick="manualSync()">🔄 Sync Now</button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-label">Progress: <span id="progressText">0 / 0</span></div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Checklist Container -->
+    <div class="checklist-container" id="checklistContainer">
+        <p style="text-align: center; padding: 2rem; color: #6b7280;">Loading checklist...</p>
+    </div>
+
+    <!-- Fixed Footer -->
+    <div class="inspection-footer">
+        <div class="overall-score">
+            <div class="overall-label">Overall Score</div>
+            <div class="overall-value" id="overallScore">0.00</div>
+        </div>
+        <div class="footer-buttons">
+            <button class="btn btn-draft" onclick="saveDraft()">💾 Save Draft</button>
+            <button class="btn btn-submit" id="submitBtn" onclick="submitInspection()" disabled>✓ Complete</button>
+        </div>
+    </div>
+
+    <script src="inspection-form.js"></script>
+</body>
+</html>
