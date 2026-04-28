@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Test Planning - Module 2B</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .team-selector {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .team-selector label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #333;
+        }
+        .team-selector select {
+            padding: 10px 15px;
+            font-size: 1em;
+            border: 2px solid #11998e;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .feature-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            background: #fff;
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            border-color: #11998e;
+            box-shadow: 0 4px 12px rgba(17, 153, 142, 0.15);
+        }
+        .feature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .feature-title {
+            font-size: 1.4em;
+            color: #333;
+            font-weight: bold;
+        }
+        .feature-priority {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .priority-high { background: #fee2e2; color: #dc2626; }
+        .priority-medium { background: #fef3c7; color: #d97706; }
+        .priority-low { background: #dbeafe; color: #2563eb; }
+        .feature-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .test-case-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        .test-case-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .test-case {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .test-case-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .test-case-title {
+            font-weight: bold;
+            color: #333;
+        }
+        .test-case-priority {
+            font-size: 0.85em;
+            color: #666;
+        }
+        .test-case textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .test-case textarea:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+        .add-test-btn {
+            background: #11998e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .add-test-btn:hover {
+            background: #0d7a6f;
+        }
+        .remove-test-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        .suggested-scenarios {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .suggested-scenarios h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+        .suggested-scenarios ul {
+            margin-left: 20px;
+            color: #78350f;
+        }
+        .suggested-scenarios li {
+            margin-bottom: 5px;
+        }
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #11998e;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0d7a6f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
+        }
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        .claude-prompt {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .claude-prompt h4 {
+            color: #075985;
+            margin-bottom: 10px;
+        }
+        .claude-prompt code {
+            display: block;
+            background: #e0f2fe;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #0c4a6e;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Feature Test Planning</h1>
+        <p class="subtitle">Module 2B: Analyze features and create test cases (knowing the bugs from Module 2A)</p>
+
+        <div class="team-selector">
+            <label for="teamSelect">Select Your Team:</label>
+            <select id="teamSelect">
+                <option value="">-- Choose Team --</option>
+                <option value="team1">Team 1</option>
+                <option value="team2">Team 2</option>
+                <option value="team3">Team 3</option>
+                <option value="team4">Team 4</option>
+            </select>
+        </div>
+
+        <div id="featuresContainer"></div>
+
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="saveProgress()">💾 Save Progress</button>
+            <button class="btn-secondary" onclick="exportTestPlan()">📄 Export Test Plan</button>
+            <button class="btn-secondary" onclick="resetAll()">🔄 Reset All</button>
+        </div>
+    </div>
+
+    <script>
+        const featureData = {
+            team1: [
+                {
+                    id: 'feature-01',
+                    title: 'Feature #1: Export Inspection Report as PDF',
+                    priority: 'high',
+                    description: 'Restaurant owners and managers need to export completed inspection reports as PDF files for sharing with health authorities, printing for records, or emailing to stakeholders.',
+                    suggestedScenarios: [
+                        'Manager downloads PDF for completed inspection',
+                        'Restaurant owner downloads their own inspection PDF',
+                        'PDF contains all required sections (restaurant info, scores, details)',
+                        'PDF file naming follows convention: Inspection_[RestaurantName]_[Date].pdf',
+                        'Export button disabled for in-progress inspections',
+                        'Loading indicator shows during PDF generation',
+                        'Error handling when PDF generation fails',
+                        'Long restaurant names don\'t overflow in PDF',
+                        'Inspections with 50+ checklist items fit properly',
+                        'Special characters in restaurant names work correctly'
+                    ],
+                    claudePrompt: 'Analyze the PDF export feature from /docs/features/feature-01-pdf-export.md and suggest additional test cases including edge cases, error scenarios, and accessibility considerations.'
+                },
+                {
+                    id: 'feature-02',
+                    title: 'Feature #2: Filter Inspections by Date Range',
+                    priority: 'medium',
+                    description: 'Managers need to filter inspections by custom date ranges to review inspections from specific time periods for reporting and analysis.',
+                    suggestedScenarios: [
+                        'Select "Last 7 Days" quick filter - correct results',
+                        'Select "Last 30 Days" quick filter - correct results',
+                        'Manual date range selection filters correctly',
+                        'Clear filter button resets to show all inspections',
+                        'From date > To date shows validation error',
+                        'Date range > 1 year shows error',
+                        'No inspections in range shows empty state message',
+                        'Filter + sorting work together',
+                        'Filter + pagination adjusts correctly',
+                        'Results count displays accurately'
+                    ],
+                    claudePrompt: 'Analyze the date filter feature from /docs/features/feature-02-date-filter.md and create boundary value tests and integration test scenarios.'
+                }
+            ],
+            team2: [
+                {
+                    id: 'feature-03',
+                    title: 'Feature #3: Bulk Inspector Assignment',
+                    priority: 'medium',
+                    description: 'Managers want to assign multiple pending inspection requests to the same inspector at once to efficiently schedule a full day\'s work.',
+                    suggestedScenarios: [
+                        'Select 3 requests, assign same date - all succeed',
+                        'Select 5 requests, sequential mode - dates increment correctly',
+                        'Select > 10 requests - error prevents selection',
+                        'Inspector conflict warning shows correctly',
+                        'Partial success message shows failed assignments',
+                        'Cancel modal - selections remain',
+                        'Select all, then deselect some - count updates',
+                        'Assign to past date - validation error shows',
+                        'Sequential mode over weekend handles correctly'
+                    ],
+                    claudePrompt: 'Analyze the bulk assignment feature from /docs/features/feature-03-bulk-assignment.md and suggest test cases for error handling and partial failure scenarios.'
+                },
+                {
+                    id: 'feature-04',
+                    title: 'Feature #4: Email Notifications for Inspection Events',
+                    priority: 'medium',
+                    description: 'System users want to receive email notifications for important inspection events to stay informed without constantly checking the dashboard.',
+                    suggestedScenarios: [
+                        'Inspector assigned - receives email within 1 minute',
+                        'Owner receives completion email with correct score',
+                        'Manager gets daily digest at 8 AM',
+                        'User toggles preference off - no email sent',
+                        'Links in email work correctly',
+                        'Unsubscribe functionality works',
+                        'Change preferences - saves correctly',
+                        'New user - all preferences enabled by default',
+                        'Multiple events in short time - all emails sent'
+                    ],
+                    claudePrompt: 'Analyze the email notification feature from /docs/features/feature-04-email-notifications.md and create test scenarios for email delivery timing and content verification.'
+                }
+            ],
+            team3: [
+                {
+                    id: 'feature-05',
+                    title: 'Feature #5: Inspection History View with Trends',
+                    priority: 'high',
+                    description: 'Restaurant owners want to view complete inspection history with trend analysis to track improvements over time and identify recurring issues.',
+                    suggestedScenarios: [
+                        'New restaurant (0 inspections) - shows empty state',
+                        '1 inspection - shows data but no trend line',
+                        '2+ inspections - trend chart displays',
+                        'Filter by last 6 months - updates charts',
+                        'Export CSV - contains correct filtered data',
+                        'Click category bar - shows item details',
+                        'Hover on trend line - shows tooltip',
+                        'Scores declining - red arrows show correctly',
+                        'Scores improving - green arrows show correctly',
+                        'Pagination works with filtered data'
+                    ],
+                    claudePrompt: 'Analyze the inspection history feature from /docs/features/feature-05-inspection-history.md and create tests for chart accuracy and visual verification.'
+                },
+                {
+                    id: 'feature-06',
+                    title: 'Feature #6: Photo Attachments for Checklist Items',
+                    priority: 'low',
+                    description: 'Inspectors want to attach photos to specific checklist items to provide visual evidence of issues found during inspections.',
+                    suggestedScenarios: [
+                        'Add photo from camera - appears as thumbnail',
+                        'Add photo from file picker - appears as thumbnail',
+                        'Add 3 photos - all appear',
+                        'Try 4th photo - shows "Max 3 photos" error',
+                        'Upload 6MB photo - auto-compressed',
+                        'Offline mode - saves to localStorage',
+                        'Come online - uploads pending photos',
+                        'Remove photo - shows confirmation, deletes',
+                        'View full size - opens modal',
+                        'Photos visible in inspection details'
+                    ],
+                    claudePrompt: 'Analyze the photo attachment feature from /docs/features/feature-06-photo-attachments.md and suggest mobile device specific test scenarios.'
+                }
+            ],
+            team4: [
+                {
+                    id: 'feature-07',
+                    title: 'Feature #7: Inspector Workload Dashboard',
+                    priority: 'medium',
+                    description: 'Managers want to see each inspector\'s current workload and performance metrics to distribute work fairly and identify inspectors who need support.',
+                    suggestedScenarios: [
+                        'No inspectors - shows empty state',
+                        'Equal workload (all 5 assigned) - all green',
+                        'One overloaded (12 assigned) - shows red',
+                        'Mixed workload - correct colors display',
+                        'Click inspector name - detail view loads',
+                        'Detail view shows correct inspection list',
+                        'Recommended inspector shows lowest count',
+                        'Filter "active only" - hides 0 assignment inspectors',
+                        'Sort by "Assigned" column - orders correctly',
+                        'Warning when assigning to overloaded inspector'
+                    ],
+                    claudePrompt: 'Analyze the inspector workload feature from /docs/features/feature-07-inspector-workload.md and create tests for workload calculation accuracy and color threshold verification.'
+                },
+                {
+                    id: 'feature-08',
+                    title: 'Feature #8: Offline Mode Indicator with Sync Status',
+                    priority: 'high',
+                    description: 'Inspectors want to see clear indicators showing which data is synced vs stored locally so they know when their work is safely saved to the server.',
+                    suggestedScenarios: [
+                        'Online - shows green "All changes saved"',
+                        'Go offline - banner turns orange',
+                        'Add score offline - item shows orange warning icon',
+                        'Come online - auto-syncs within 30 seconds',
+                        'After sync - banner green, items show checkmark',
+                        'Sync fails - shows red error banner',
+                        'Failed sync retries automatically',
+                        'Manual sync button - shows progress',
+                        'Manual sync success - shows toast notification',
+                        'Last sync timestamp updates correctly'
+                    ],
+                    claudePrompt: 'Analyze the offline indicator feature from /docs/features/feature-08-offline-indicator.md and create network simulation test scenarios for inspector mobile use.'
+                }
+            ]
+        };
+
+        let currentTeam = '';
+        let testCases = {};
+
+        document.getElementById('teamSelect').addEventListener('change', function(e) {
+            currentTeam = e.target.value;
+            if (currentTeam) {
+                loadFeatures();
+                loadProgress();
+            }
+        });
+
+        function loadFeatures() {
+            const features = featureData[currentTeam] || [];
+            const container = document.getElementById('featuresContainer');
+            container.innerHTML = '';
+
+            features.forEach(feature => {
+                const card = createFeatureCard(feature);
+                container.appendChild(card);
+            });
+
+            if (!testCases[currentTeam]) {
+                testCases[currentTeam] = {};
+            }
+        }
+
+        function createFeatureCard(feature) {
+            const card = document.createElement('div');
+            card.className = 'feature-card';
+            card.id = feature.id;
+
+            if (!testCases[currentTeam][feature.id]) {
+                testCases[currentTeam][feature.id] = [];
+            }
+
+            card.innerHTML = `
+                <div class="feature-header">
+                    <div class="feature-title">${feature.title}</div>
+                    <span class="feature-priority priority-${feature.priority}">${feature.priority.toUpperCase()}</span>
+                </div>
+                <div class="feature-description">${feature.description}</div>
+
+                <div class="claude-prompt">
+                    <h4>💡 Ask Claude Code:</h4>
+                    <code>${feature.claudePrompt}</code>
+                </div>
+
+                <div class="suggested-scenarios">
+                    <h4>📋 Suggested Test Scenarios:</h4>
+                    <ul>
+                        ${feature.suggestedScenarios.map(scenario => `<li>${scenario}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="test-case-section">
+                    <h3>✍️ Your Test Cases:</h3>
+                    <div id="${feature.id}-test-cases"></div>
+                    <button class="add-test-btn" onclick="addTestCase('${feature.id}')">➕ Add Test Case</button>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function addTestCase(featureId) {
+            const container = document.getElementById(`${featureId}-test-cases`);
+            const testCaseId = `${featureId}-tc-${Date.now()}`;
+
+            const testCase = document.createElement('div');
+            testCase.className = 'test-case';
+            testCase.id = testCaseId;
+
+            testCase.innerHTML = `
+                <div class="test-case-header">
+                    <div class="test-case-title">Test Case ${testCases[currentTeam][featureId].length + 1}</div>
+                    <button class="remove-test-btn" onclick="removeTestCase('${testCaseId}', '${featureId}')">Remove</button>
+                </div>
+                <textarea id="${testCaseId}-title" placeholder="Test Case Title (e.g., 'Manager exports PDF with all inspection data')"></textarea>
+                <textarea id="${testCaseId}-steps" placeholder="Steps:\n1. \n2. \n3. "></textarea>
+                <textarea id="${testCaseId}-expected" placeholder="Expected Result:"></textarea>
+            `;
+
+            container.appendChild(testCase);
+            testCases[currentTeam][featureId].push(testCaseId);
+        }
+
+        function removeTestCase(testCaseId, featureId) {
+            const testCase = document.getElementById(testCaseId);
+            if (testCase && confirm('Remove this test case?')) {
+                testCase.remove();
+                const index = testCases[currentTeam][featureId].indexOf(testCaseId);
+                if (index > -1) {
+                    testCases[currentTeam][featureId].splice(index, 1);
+                }
+            }
+        }
+
+        function saveProgress() {
+            if (!currentTeam) return;
+
+            const state = {
+                testCases: testCases[currentTeam],
+                data: {}
+            };
+
+            document.querySelectorAll('textarea').forEach(ta => {
+                state.data[ta.id] = ta.value;
+            });
+
+            localStorage.setItem(`featureTests_${currentTeam}`, JSON.stringify(state));
+            alert('✅ Progress saved!');
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem(`featureTests_${currentTeam}`);
+            if (saved) {
+                const state = JSON.parse(saved);
+                testCases[currentTeam] = state.testCases || {};
+
+                // Recreate test cases
+                Object.keys(testCases[currentTeam]).forEach(featureId => {
+                    testCases[currentTeam][featureId].forEach(testCaseId => {
+                        const container = document.getElementById(`${featureId}-test-cases`);
+                        if (container && !document.getElementById(testCaseId)) {
+                            addTestCase(featureId);
+                        }
+                    });
+                });
+
+                // Restore textarea values
+                setTimeout(() => {
+                    Object.keys(state.data).forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.value = state.data[id];
+                        }
+                    });
+                }, 100);
+            }
+        }
+
+        function exportTestPlan() {
+            if (!currentTeam) return;
+
+            const features = featureData[currentTeam] || [];
+            let plan = `Feature Test Plan - ${currentTeam.toUpperCase()}\n`;
+            plan += `Generated: ${new Date().toLocaleString()}\n`;
+            plan += `\n${'='.repeat(80)}\n\n`;
+
+            features.forEach(feature => {
+                plan += `${feature.title}\n`;
+                plan += `Priority: ${feature.priority}\n`;
+                plan += `Description: ${feature.description}\n\n`;
+
+                const featureTestCases = testCases[currentTeam][feature.id] || [];
+                plan += `Test Cases: ${featureTestCases.length}\n\n`;
+
+                featureTestCases.forEach((tcId, index) => {
+                    const title = document.getElementById(`${tcId}-title`)?.value || 'Untitled';
+                    const steps = document.getElementById(`${tcId}-steps`)?.value || '';
+                    const expected = document.getElementById(`${tcId}-expected`)?.value || '';
+
+                    plan += `  Test Case ${index + 1}: ${title}\n`;
+                    if (steps) plan += `  Steps:\n  ${steps.replace(/\n/g, '\n  ')}\n`;
+                    if (expected) plan += `  Expected: ${expected}\n`;
+                    plan += `\n`;
+                });
+
+                plan += `${'-'.repeat(80)}\n\n`;
+            });
+
+            const blob = new Blob([plan], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `feature-test-plan-${currentTeam}-${Date.now()}.txt`;
+            a.click();
+        }
+
+        function resetAll() {
+            if (confirm('Are you sure you want to reset all test cases? This cannot be undone.')) {
+                localStorage.removeItem(`featureTests_${currentTeam}`);
+                testCases[currentTeam] = {};
+                loadFeatures();
+            }
+        }
+    </script>
+</body>
+</html>

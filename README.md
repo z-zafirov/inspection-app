@@ -45,6 +45,7 @@ Run these SQL files in Supabase SQL Editor (in order):
 1. `database/01_create_tables.sql`
 2. `database/02_seed_data.sql`
 3. `database/03_update_passwords.sql`
+4. `database/04_workshop_accounts.sql` (adds team accounts and updates passwords)
 
 ### 4. Start the Server
 
@@ -57,34 +58,45 @@ Server runs on: **http://localhost:3000**
 
 ### 5. Access the Application
 
-- **Landing Page**: http://localhost:3000/
-- **Login**: http://localhost:3000/client/login.html
+- **Landing Page**: http://localhost:3000/ (with login modal)
 - **Dashboard**: http://localhost:3000/client/dashboard.html (auto-redirects by role)
 
 ---
 
 ## 🧪 Test Credentials
 
-All passwords: **`password123`**
+All passwords: **`Test1234!`**
 
-### Workshop Participant Accounts
+### Workshop Team Structure
 
-| Role | Email | Use Case |
-|------|-------|----------|
-| Manager | lisa.chen@management.com | Assign inspectors |
-| Manager | robert.kim@management.com | Assign inspectors |
-| Inspector | john.doe@example.com | Conduct inspections |
-| Inspector | sarah.johnson@example.com | Conduct inspections |
-| Inspector | mike.wilson@example.com | Conduct inspections |
-| Restaurant Owner | maria.garcia@downtownpizza.com | Request inspections |
+**4 Teams** with complete accounts for team-based exercises.
 
-### Facilitator Account (Not shown on login page)
+See `database/WORKSHOP_TEAMS.md` for complete team assignments.
+
+**Account Summary:**
+- **4 Managers** (1 per team)
+- **16 Inspectors** (4 per team)
+- **4 Restaurant Owners** (1 per team)
+- **1 Admin** (facilitator only)
+
+**Sample Accounts:**
+
+| Role | Email | Team |
+|------|-------|------|
+| Manager | lisa.chen@management.com | Team 1 |
+| Manager | robert.kim@management.com | Team 2 |
+| Inspector | john.doe@example.com | Team 1 |
+| Inspector | james.brown@example.com | Team 2 |
+| Restaurant Owner | maria.garcia@downtownpizza.com | Team 1 |
+| Restaurant Owner | alex.chen@sunrisecafe.com | Team 2 |
+
+### Facilitator Account
 
 | Role | Email | Use Case |
 |------|-------|----------|
 | Admin | admin@system.com | System overview & demonstrations |
 
-**Note**: Admin credentials are restricted to workshop facilitators to prevent accidental data modification during exercises.
+**Note**: Credentials are distributed via team sheets. Login page does not display test credentials.
 
 ---
 
@@ -109,7 +121,9 @@ inspection-app/
 │   ├── dashboard-styles.css        # Shared dashboard styles
 │   └── styles.css                  # Global styles
 ├── landing/                         # Landing page
-│   └── index.html                  # Public landing page
+│   ├── index.html                  # Public landing page with login modal
+│   ├── login.js                    # Login modal handler
+│   └── styles.css                  # Landing page styles
 ├── server/                          # Backend API
 │   ├── server.js                   # Express app entry point
 │   ├── package.json                # Dependencies
@@ -129,9 +143,13 @@ inspection-app/
 ├── database/                        # Database scripts
 │   ├── 01_create_tables.sql       # Create 6 tables
 │   ├── 02_seed_data.sql           # Insert seed data
-│   └── 03_update_passwords.sql    # Update password hashes
-├── testing/                         # Test cases
-│   └── test-cases.html            # Interactive test matrix (67 tests)
+│   ├── 03_update_passwords.sql    # Update password hashes
+│   ├── 04_workshop_accounts.sql   # Workshop team accounts
+│   └── WORKSHOP_TEAMS.md          # Team assignments
+├── test/                            # Manual testing resources
+│   ├── test-cases.html            # Main landing page for testing tools
+│   ├── bug-checklist.html         # Module 2A: Bug verification
+│   └── feature-checklist.html     # Module 2B: Feature test planning
 ├── docs/                           # Documentation
 │   ├── API-REFERENCE.md           # Complete API documentation
 │   ├── DATABASE-SCHEMA.md         # Database structure
@@ -191,7 +209,7 @@ inspection-app/
 
 ### **Database**
 - ✅ 6 tables (users, restaurants, inspection_requests, inspections, checklist_items, checklist_scores)
-- ✅ 9 seed users (admin, managers, inspectors, owners)
+- ✅ 25 seed users (1 admin, 4 managers, 16 inspectors, 4 owners)
 - ✅ 8 sample restaurants
 - ✅ 12 checklist items (kitchen, bar, main_hall)
 - ✅ 6 sample inspections with scores
@@ -262,7 +280,7 @@ Result: Data synced from localStorage to server
 ### Manual Testing
 Open interactive test matrix:
 ```bash
-open testing/test-cases.html
+open test/test-cases.html
 ```
 
 **67 test cases** covering:
@@ -390,8 +408,8 @@ npm install
 - If behind proxy, set `HTTP_PROXY` and `HTTPS_PROXY`
 
 ### Login fails
-- Verify database seed scripts ran successfully
-- Check password is exactly: `password123`
+- Verify database seed scripts ran successfully (especially 04_workshop_accounts.sql)
+- Check password is exactly: `Test1234!`
 - Clear browser cache and try again
 
 ### Offline sync not working
@@ -407,7 +425,7 @@ npm install
 - **Lines of Code**: ~5,000 lines
 - **API Endpoints**: 13 endpoints
 - **Database Tables**: 6 tables
-- **Seed Data**: 9 users, 8 restaurants, 12 checklist items, 6 inspections
+- **Seed Data**: 25 users (1 admin, 4 managers, 16 inspectors, 4 owners), 8 restaurants, 12 checklist items, 6 inspections
 - **Test Cases**: 67 comprehensive tests
 - **Documentation**: 7 detailed guides
 
@@ -467,7 +485,7 @@ Not implemented (optional future work):
 - **API Reference**: `docs/API-REFERENCE.md`
 - **Quick Reference**: `docs/QUICK-REFERENCE.md`
 - **Deployment Guide**: `docs/DEPLOYMENT-GUIDE.md`
-- **Test Cases**: Open `testing/test-cases.html` in browser
+- **Test Cases**: Open `test/test-cases.html` in browser
 
 ---
 

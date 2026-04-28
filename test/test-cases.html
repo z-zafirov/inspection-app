@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Test Resources</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .subtitle {
+            color: #666;
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        .info-box h3 {
+            color: #075985;
+            margin-bottom: 10px;
+        }
+        .info-box p {
+            color: #0c4a6e;
+            line-height: 1.6;
+        }
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 30px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+        .card.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .card p {
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        .module-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+        .resources-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+        }
+        .resources-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .resource-list {
+            list-style: none;
+        }
+        .resource-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f9fafb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        .resource-list li:hover {
+            background: #f3f4f6;
+            transform: translateX(5px);
+        }
+        .resource-list li::before {
+            content: "📄";
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        .resource-list a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .resource-list a:hover {
+            text-decoration: underline;
+        }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .quick-link {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .quick-link:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+        .workflow {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        .workflow h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+        .workflow ol {
+            margin-left: 20px;
+            color: #78350f;
+        }
+        .workflow li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Workshop Test Resources</h1>
+        <p class="subtitle">Restaurant Inspection System - Testing Toolkit</p>
+
+        <div class="info-box">
+            <h3>Welcome to Your Testing Workspace!</h3>
+            <p>
+                This page provides interactive tools for Module 2 of the workshop. Use these HTML checklists
+                to organize your bug verification (Module 2A) and feature test planning (Module 2B).
+                Your progress is saved automatically in your browser's local storage.
+            </p>
+        </div>
+
+        <div class="cards-container">
+            <a href="bug-checklist.html" class="card">
+                <div class="icon">🐛</div>
+                <h2>Bug Verification</h2>
+                <p>Module 2A: Reproduce and verify your team's assigned bugs through exploratory testing.</p>
+                <span class="module-badge">Module 2A</span>
+            </a>
+
+            <a href="feature-checklist.html" class="card green">
+                <div class="icon">✨</div>
+                <h2>Feature Test Planning</h2>
+                <p>Module 2B: Create comprehensive test cases for your team's assigned features.</p>
+                <span class="module-badge">Module 2B</span>
+            </a>
+        </div>
+
+        <div class="workflow">
+            <h3>📋 Suggested Workflow</h3>
+            <ol>
+                <li><strong>Module 2A (40 min)</strong>: Open Bug Verification checklist → Select your team → Reproduce each bug step-by-step → Document your findings</li>
+                <li><strong>Break (10 min)</strong>: Discuss findings with your team → Compare results</li>
+                <li><strong>Module 2B (50 min)</strong>: Open Feature Test Planning → Select your team → Review suggested scenarios → Ask Claude Code for help → Create your test cases</li>
+                <li><strong>Export</strong>: Save your work using the export buttons → Share with team → Use in Module 3 & 4</li>
+            </ol>
+        </div>
+
+        <div class="resources-section">
+            <h2>📚 Additional Resources</h2>
+            <ul class="resource-list">
+                <li>
+                    <span style="color: #666;">
+                        🔐 Test User Credentials - Provided separately by instructor (not in public repo)
+                    </span>
+                </li>
+                <li>
+                    <a href="../docs/bugs/" target="_blank">
+                        Bug Documentation - Complete bug descriptions with technical details
+                    </a>
+                </li>
+                <li>
+                    <a href="../docs/features/" target="_blank">
+                        Feature Documentation - Feature requirements and acceptance criteria
+                    </a>
+                </li>
+                <li>
+                    <a href="../../inspection-automation/README.md" target="_blank">
+                        Automation Framework - Playwright test setup (for Module 4 / Station 1)
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="resources-section">
+            <h2>🔗 Quick Links</h2>
+            <div class="quick-links">
+                <a href="https://inspection.qacraft.org/" target="_blank" class="quick-link">
+                    🌐 Live Application
+                </a>
+                <a href="https://github.com/z-zafirov/inspection-app" target="_blank" class="quick-link">
+                    💻 GitHub Repository
+                </a>
+                <a href="../docs/README.md" target="_blank" class="quick-link">
+                    📖 Documentation
+                </a>
+            </div>
+        </div>
+
+        <div class="workflow" style="background: #f0f9ff; border-left-color: #0284c7;">
+            <h3>💡 Tips for Success</h3>
+            <ol>
+                <li><strong>Use Claude Code</strong>: Don't work alone! Ask Claude to analyze requirements, suggest test cases, and identify edge cases you might miss.</li>
+                <li><strong>Think Like a User</strong>: Focus on GUI workflows and user experiences, not technical implementation.</li>
+                <li><strong>Document Everything</strong>: Use the notes sections to capture observations, variations, and additional findings.</li>
+                <li><strong>Save Frequently</strong>: Click "Save Progress" regularly. Your work is stored in browser local storage.</li>
+                <li><strong>Export Your Work</strong>: Use export buttons to save text files of your verification reports and test plans.</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
